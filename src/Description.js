@@ -8,7 +8,7 @@ function Description({username}) {
             <span>Hello, {username}!</span>
             <p>
                 {yearDiff} years ago I published&nbsp;
-                <a href="https://www.linkedin.com/posts/pavel-savinov_goals-for-2019-are-they-in-line-with-your-activity-6483990814627368960-Zum2">this post</a>&nbsp;on
+                <a target="_blank" href="https://www.linkedin.com/posts/pavel-savinov_goals-for-2019-are-they-in-line-with-your-activity-6483990814627368960-Zum2">this post</a>&nbsp;on
                 LinkedIn. There I tried to explain my approach to planning my life in general, and goals setting in particular.
             </p>
             <p>
