@@ -8,7 +8,7 @@ function Description({username}) {
             <span>Hello, {username}!</span>
             <p>
                 {yearDiff} years ago I published&nbsp;
-                <a target="_blank" href="https://www.linkedin.com/posts/pavel-savinov_goals-for-2019-are-they-in-line-with-your-activity-6483990814627368960-Zum2">this post</a>&nbsp;on
+                <a target="_blank" rel="noreferrer" href="https://www.linkedin.com/posts/pavel-savinov_goals-for-2019-are-they-in-line-with-your-activity-6483990814627368960-Zum2">this post</a>&nbsp;on
                 LinkedIn. There I tried to explain my approach to planning my life in general, and goals setting in particular.
             </p>
             <p>
@@ -23,6 +23,9 @@ function Description({username}) {
             <p className="disclaimer">
                 This app is 100% free, I don't ask you to pay to get the results or any other bullshit like that. App doesn't store any personal data remotely and doesn't share the results with anyone.
             </p>
+            <div>
+                Source code is <a target="_blank" href="https://www.github.com/psavinov/gav" rel="noreferrer">here</a>.
+            </div>
         </div>
     );
 }
