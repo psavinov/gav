@@ -30,7 +30,7 @@ function App() {
         <>
           <Description username={username} />
 
-          <button className="app-button" onClick={() => setStep(1)}>
+          <button className="app-button" autoFocus={true} onClick={() => setStep(1)}>
             Let's start!
           </button>
         </>
@@ -109,20 +109,28 @@ function App() {
 }
 
 function StepOne({username, localState, step, setUsername, setStep}) {
+  const nextStep = () => {
+    localState.username = username;
+    updateLocalStorage(localState);
+
+    setStep(++step);
+  };
+
   return (
     <>
       <Introduction 
         username={username || DEFAULT_USERNAME} 
         onChange={(newUsername) => setUsername(newUsername)}
         returning={localState && localState.returning}
+        onKeyPress={(keyCode) => {
+          console.log(keyCode);
+          if (keyCode === "Enter") {
+            nextStep();
+          }
+        }}
       />
 
-      <button className="app-button" onClick={() => {
-        localState.username = username;
-        updateLocalStorage(localState);
-
-        setStep(++step);
-      }}>
+      <button className="app-button" onClick={() => nextStep()}>
         Continue
       </button>
     </>
