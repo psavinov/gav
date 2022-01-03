@@ -1,6 +1,6 @@
 export const DEFAULT_USERNAME = "Friend";
 
-function Introduction({username, onChange, returning}) {
+function Introduction({username, onChange, returning, onKeyPress}) {
     return (
         <>
             <div className="app-block">
@@ -28,6 +28,7 @@ function Introduction({username, onChange, returning}) {
                             className="app-text-input" 
                             type="text" 
                             onChange={(event) => onChange(event.target.value)}
+                            onKeyPress={(event) => onKeyPress(event.key)}
                             placeholder={username}
                             autoFocus={true}
                         />
