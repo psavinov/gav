@@ -11,6 +11,9 @@ function Goals({username, values, goals, onAddGoal, onRemoveGoal, onUpdateGoal})
                 If you feel that the accomplishment of this goal contributes to one of your values - please select corresponding value from the list, but it is not required.
             </p>
             <p>
+                If you don't do any goals setting maybe it is the right time to start, you can use your day-by-day actions to formulate your goals.
+            </p>
+            <p>
                 Click Plus button to add a new goal line, or click Minus button to remove any existing goal.
             </p>
 
