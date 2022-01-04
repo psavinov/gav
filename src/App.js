@@ -278,6 +278,11 @@ function StepFive({username, goals, step, localState, setGoals, setStep}) {
 }
 
 function StepSix({username, goals, values, valueRatings, localState}) {
+  if (!localState.returning) {
+    localState.returning = true;
+    updateLocalStorage(localState);
+  }
+
   return (
     <>
       <Results
