@@ -1,8 +1,9 @@
-import { render, screen, fireEvent } from "@testing-library/react";
+import { screen, fireEvent } from "@testing-library/react";
 import ValuesRating from "../ValuesRating";
+import { customRender } from "./customRender";
 
 test("renders corresponding values", () => {
-  render(<ValuesRating username="USER" returning={true} values={["test value"]} valueRatings={{}}/>);
+  customRender(<ValuesRating username="USER" returning={true} values={["test value"]} valueRatings={{}}/>);
 
   const valueColumn = screen.getByText("test value");
 
@@ -10,7 +11,7 @@ test("renders corresponding values", () => {
 });
 
 test("updates corresponding value rating", () => {
-    render(<ValuesRating username="USER" returning={true} values={["test value"]} valueRatings={{}} onChange={(index, rating) => expect(rating).toEqual(5)} />);
+    customRender(<ValuesRating username="USER" returning={true} values={["test value"]} valueRatings={{}} onChange={(index, rating) => expect(rating).toEqual(5)} />);
   
     const valueColumn = screen.getByText("test value");
     const valueInput = valueColumn.nextSibling.children[0];
@@ -21,7 +22,7 @@ test("updates corresponding value rating", () => {
 });
 
 test("updates corresponding value rating to empty string in case of invalid input", () => {
-    render(<ValuesRating username="USER" returning={true} values={["test value"]} valueRatings={{}} onChange={(index, rating) => expect(rating).toEqual("")} />);
+    customRender(<ValuesRating username="USER" returning={true} values={["test value"]} valueRatings={{}} onChange={(index, rating) => expect(rating).toEqual("")} />);
   
     const valueColumn = screen.getByText("test value");
     const valueInput = valueColumn.nextSibling.children[0];

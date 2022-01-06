@@ -1,26 +1,30 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
+import AppContext from "./AppContext";
+import AppBlockWithLanguageSelector from "./LanguageSelector";
 
 function GoalsRating({username, goals, onChange}) {
     const [selectedIndex, setSelectedIndex] = useState(null);
+    const context = useContext(AppContext);
+
     return (
-        <div className="app-block">
-            <span>Perfect, {username}. We are almost done!</span>
+        <AppBlockWithLanguageSelector>
+            <span>{context.getString("perfect")}, {username}. {context.getString("almost.done")}</span>
 
             <p>
-                You have entered your goals, but very likely the accomplishment of one goal is more important for you than the accomplishment of another, so let's rate them! 
+                {context.getString("lets.rate.goals")}
             </p>
 
             <p>
-                Please specify a priority for each of your goals, from <b>1</b> (lowest priority) to <b>5</b> (highest priority). 
-                Feel free to repeat the same rating more than once (e.g. all 5 if they are all super-important for you).
+                {context.getString("please.rate.goals")} <b>1</b> ({context.getString("lowest.pr")}) to <b>5</b> ({context.getString("highest.pr")}). 
+                {context.getString("repeat.more.goal")}
             </p>
 
             <div className="app-rating">
                 <table>
                     <thead>
                         <tr>
-                            <th>Goal</th>
-                            <th className="rating-column">Rating</th>
+                            <th>{context.getString("goal")}</th>
+                            <th className="rating-column">{context.getString("rating")}</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -52,7 +56,7 @@ function GoalsRating({username, goals, onChange}) {
                     </tbody>
                 </table>
             </div>
-        </div>
+        </AppBlockWithLanguageSelector>
     );
 }
 

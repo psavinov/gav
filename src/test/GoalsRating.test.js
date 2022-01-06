@@ -1,8 +1,9 @@
-import { render, screen, fireEvent } from "@testing-library/react";
+import { screen, fireEvent } from "@testing-library/react";
 import GoalsRating from "../GoalsRating";
+import { customRender } from "./customRender";
 
 test("renders corresponding goals", () => {
-  render(<GoalsRating username="USER" returning={true} goals={[{name: "test goal", rating: 1}]}/>);
+  customRender(<GoalsRating username="USER" returning={true} goals={[{name: "test goal", rating: 1}]}/>);
 
   const goalColumn = screen.getByText("test goal");
 
@@ -10,7 +11,7 @@ test("renders corresponding goals", () => {
 });
 
 test("updates corresponding goal rating", () => {
-    render(<GoalsRating username="USER" returning={true} goals={[{name: "test goal", rating: 1}]} onChange={(index, rating) => expect(rating).toEqual(5)}/>);  
+    customRender(<GoalsRating username="USER" returning={true} goals={[{name: "test goal", rating: 1}]} onChange={(index, rating) => expect(rating).toEqual(5)}/>);  
     const goalColumn = screen.getByText("test goal");
     const goalInput = goalColumn.nextSibling.children[0];
 
@@ -20,7 +21,7 @@ test("updates corresponding goal rating", () => {
 });
 
 test("updates corresponding goal rating to empty string in case of invalid input", () => {
-    render(<GoalsRating username="USER" returning={true} goals={[{name: "test goal", rating: 1}]} onChange={(index, rating) => expect(rating).toEqual("")}/>);  
+    customRender(<GoalsRating username="USER" returning={true} goals={[{name: "test goal", rating: 1}]} onChange={(index, rating) => expect(rating).toEqual("")}/>);  
 
     const goalColumn = screen.getByText("test goal");
     const goalInput = goalColumn.nextSibling.children[0];

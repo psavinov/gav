@@ -1,8 +1,9 @@
-import { render, screen } from '@testing-library/react';
+import { screen } from '@testing-library/react';
 import Introduction from '../Introduction';
+import { customRender } from "./customRender";
 
 test('renders hello text, label and name field', () => {
-  render(<Introduction username="USER" />);
+  customRender(<Introduction username="USER" />);
 
   const helloText = screen.getByText("Hello, USER!");
   expect(helloText).toBeInTheDocument();
@@ -11,7 +12,7 @@ test('renders hello text, label and name field', () => {
 });
 
 test('renders welcome back text for the returning user', () => {
-  render(<Introduction username="USER" returning={true}/>);
+  customRender(<Introduction username="USER" returning={true}/>);
 
   const helloText = screen.getByText("Welcome back! Great to see you here again. If you're ok with your current user name feel free to skip this step.");
   expect(helloText).toBeInTheDocument();

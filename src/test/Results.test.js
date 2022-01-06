@@ -1,8 +1,9 @@
-import { render, screen, fireEvent, getAllByText } from "@testing-library/react";
+import { screen } from "@testing-library/react";
 import Results from "../Results";
+import { customRender } from "./customRender";
 
 test("renders normal results page", () => {
-  render(<Results 
+  customRender(<Results 
     username="USER" 
     values={["a", "b", "c"]}
     goals={[
@@ -18,7 +19,7 @@ test("renders normal results page", () => {
 });
 
 test("renders normal results page with non-zero scores", () => {
-    render(<Results 
+    customRender(<Results 
       username="USER" 
       values={["a", "b", "c"]}
       goals={[
@@ -35,7 +36,7 @@ test("renders normal results page with non-zero scores", () => {
 });
 
 test("renders results with many low-priority values", () => {
-    render(<Results 
+    customRender(<Results 
       username="USER" 
       values={["a", "b", "c"]}
       goals={[
@@ -51,7 +52,7 @@ test("renders results with many low-priority values", () => {
 });
 
 test("renders results with many low-priority goals", () => {
-    render(<Results 
+    customRender(<Results 
       username="USER" 
       values={["a", "b", "c"]}
       goals={[
@@ -67,7 +68,7 @@ test("renders results with many low-priority goals", () => {
 });
 
 test("renders results with many high-priority goals", () => {
-    render(<Results 
+    customRender(<Results 
       username="USER" 
       values={["a", "b", "c"]}
       goals={[
@@ -83,7 +84,7 @@ test("renders results with many high-priority goals", () => {
 });
 
 test("renders results with goals without values", () => {
-    render(<Results 
+    customRender(<Results 
       username="USER" 
       values={["a", "b", "c"]}
       goals={[
@@ -100,7 +101,7 @@ test("renders results with goals without values", () => {
 });
 
 test("renders results with values without goals", () => {
-    render(<Results 
+    customRender(<Results 
       username="USER" 
       values={["a", "b", "c", "d"]}
       goals={[
