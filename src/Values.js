@@ -1,19 +1,23 @@
 import { DEFAULT_USERNAME } from "./Introduction";
 import { AVAILABLE_VALUES } from "./availableValues";
+import AppBlockWithLanguageSelector from "./LanguageSelector";
+import AppContext from "./AppContext";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useContext } from "react";
 import { isMobile } from "react-device-detect";
 
 function Values({username, values, onAddValue, onRemoveValue, returning}) {
+    const context = useContext(AppContext);
     const [filter, setFilter] = useState("");
-    const [filteredValues, setFilteredValues] = useState(AVAILABLE_VALUES);
+    const [availableValues, setAvailableValues] = useState(AVAILABLE_VALUES[context.language]);
+    const [filteredValues, setFilteredValues] = useState(availableValues);
     const [selectedAvailable, setSelectedAvailable] = useState([]);
     const [selectedCurrent, setSelectedCurrent] = useState(isMobile ? values : []);
 
     const addSelected = useCallback(() => {
-        const optionsToAdd = selectedAvailable.filter(option => values.indexOf(option) === -1);
+        const optionsToAdd = selectedAvailable.filter(option => values.indexOf(option.id) === -1).map(option => option.id);
 
-        if (isMobile && filter) {
+        if ((isMobile || !optionsToAdd.length) && filter) {
             optionsToAdd.push(filter);
         }
 
@@ -39,41 +43,45 @@ function Values({username, values, onAddValue, onRemoveValue, returning}) {
     };
 
     useEffect(() => {
-        setFilteredValues(AVAILABLE_VALUES.filter(value => filter.length < 2 || value.toLowerCase().indexOf(filter.toLowerCase()) !== -1));
+        setFilteredValues(availableValues.filter(value => filter.length < 2 || value.label.toLowerCase().indexOf(filter.toLowerCase()) !== -1));
         setSelectedAvailable([]);
-    }, [filter]);
+    }, [availableValues, filter]);
+
+    useEffect(() => {
+        setAvailableValues(AVAILABLE_VALUES[context.language]);
+    }, [context.language]);
 
     return (
-        <div className="app-block">
-            <span>Hey, {username}!</span>
+        <AppBlockWithLanguageSelector>
+            <span>{context.getString("hey")}, {username}!</span>
 
             {username !== DEFAULT_USERNAME && !returning && (
-                <p>Thank you for the introduction, it is always much better to know who you're talking to!</p>
+                <p>{context.getString("thanks.intro")}</p>
             )}
 
             {returning ? (
-                <p>Since it is not your first time here, you're probably familiar with the idea, but just in case here is the reminder.</p>
+                <p>{context.getString("not.first.time.reminder")}</p>
             ) : (
-                <p>Since it is your first time here, let me explain you how it works.</p>
+                <p>{context.getString("first.time.explain")}</p>
             )}
 
             <p>
-                Please choose some (I recommend to start with 3 - 5 if it is your first time) core values which resonate the most with your current state of mind. Use the filter field to fid the one you want.
+                {context.getString("please.choose.values")}
             </p>
             <p>
-                Click Plus button or double-click on the list option to add a value. If you haven't found the right one please use the Plus button to add your own from the filter field. Use the Minus button to remove any selected value from the list. 
+                {context.getString("click.plus.value")} 
             </p>
 
-            <p>If you are on mobile you can just mark the checkboxes for the values you want to add.</p>
+            <p>{context.getString("if.you.on.mobile")}</p>
 
             <div className="app-values-block">
                 <div className="app-values-column">
-                    <b>Available values</b>
+                    <b>{context.getString("available.vals")}</b>
                     <div className="app-values-filter">
                             <input 
                                 className="app-text-input" 
                                 type="text" 
-                                placeholder={isMobile ? "Enter your value..." : "Start typing to find a value..."}
+                                placeholder={isMobile ? context.getString("placeholder.add") : context.getString("placeholder.filter")}
                                 autoFocus={!isMobile}
                                 onChange={(event) => setFilter(event.target.value)}
                             />
@@ -87,20 +95,20 @@ function Values({username, values, onAddValue, onRemoveValue, returning}) {
                         onChange={(event) => 
                             setSelectedAvailable([...event.target.options].filter(
                                 option => option.selected
-                            ).map(option => option.value))
+                            ).map(option => availableValues.find(item => item.id === option.value)))
                         }
                         onDoubleClick={() => addSelected()}
                         size={5}
-                        value={selectedAvailable}
+                        value={selectedAvailable.map(item => item.id)}
                     >
                         {filteredValues.map(value => (
-                                <option value={value} key={value}>{value}</option>
+                                <option value={value.id} key={value.id}>{AVAILABLE_VALUES[context.language].find(item => item.id === value.id).label}</option>
                             ))}
                     </select>
                 </div>
 
                 <div className="app-values-column app-values-column-selected">
-                    <b>Selected values</b><br/>
+                    <b>{context.getString("selected.vals")}</b><br/>
                     <div className="app-values-selected">
                         <select 
                             className="app-select-multiple" 
@@ -117,7 +125,7 @@ function Values({username, values, onAddValue, onRemoveValue, returning}) {
                             value={selectedCurrent}
                         >   
                             {values.map(value => (
-                                <option value={value} key={value}>{value}</option>
+                                <option value={value} key={value}>{AVAILABLE_VALUES[context.language].find(item => item.id === value)?.label || value}</option>
                             ))}
                         </select>
                         <button className={`minus-button${isMobile ? " hide" : ""}`} onClick={()=>removeSelected()}>
@@ -127,7 +135,7 @@ function Values({username, values, onAddValue, onRemoveValue, returning}) {
                 </div>
 
             </div>
-        </div>
+        </AppBlockWithLanguageSelector>
     );
 }
 

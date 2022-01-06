@@ -1,20 +1,27 @@
+import AppBlockWithLanguageSelector from "./LanguageSelector";
+import { useContext } from "react";
+import AppContext from "./AppContext";
+import { AVAILABLE_VALUES } from "./availableValues";
+
 function Goals({username, values, goals, onAddGoal, onRemoveGoal, onUpdateGoal}) {
+    const context = useContext(AppContext);
+
     return (
-        <div className="app-block">
-            <span>Thanks, {username}!</span>
+        <AppBlockWithLanguageSelector>
+            <span>{context.getString("thanks")}, {username}!</span>
 
             <p>
-                Awesome, values rated! Now it is time to set some goals.
+                {context.getString("awesome.vals.rated")}
             </p>
             <p>
-                Here you can put any number of goals you  set for yourself. It can be one long-term goal or many short-term ones.
-                If you feel that the accomplishment of this goal contributes to one of your values - please select corresponding value from the list, but it is not required.
+                {context.getString("any.number.of.goals")}
+                {context.getString("goal.select.val")}
             </p>
             <p>
-                If you don't do any goals setting maybe it is the right time to start, you can use your day-by-day actions to formulate your goals.
+                {context.getString("dont.set.any.goals")}
             </p>
             <p>
-                Click Plus button to add a new goal line, or click Minus button to remove any existing goal.
+                {context.getString("click.plus.add.goal")}
             </p>
 
             <div className="app-goals-block">
@@ -22,10 +29,10 @@ function Goals({username, values, goals, onAddGoal, onRemoveGoal, onUpdateGoal})
                     <thead>
                         <tr>
                             <th>
-                                Goal
+                                {context.getString("goal")}
                             </th>
                             <th>
-                                Corresponding Value
+                                {context.getString("corresponding.val")}
                             </th>
                             <th>
                                 <button className="plus-button" onClick={() => onAddGoal()}>
@@ -52,11 +59,11 @@ function Goals({username, values, goals, onAddGoal, onRemoveGoal, onUpdateGoal})
                                         value={goal.value}
                                     >
                                         <option value="">
-                                            No corresponding value
+                                            {context.getString("no.corresponding.val")}
                                         </option>
                                         {values.map((value, valueIndex) => (
                                             <option key={valueIndex} value={value}>
-                                                {value}
+                                                {AVAILABLE_VALUES[context.language].find(item => item.id === value)?.label || value}
                                             </option>
                                         ))}
                                     </select>
@@ -71,7 +78,7 @@ function Goals({username, values, goals, onAddGoal, onRemoveGoal, onUpdateGoal})
                     </tbody>
                 </table>
             </div>
-        </div>
+        </AppBlockWithLanguageSelector>
     );
 }
 

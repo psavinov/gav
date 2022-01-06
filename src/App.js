@@ -1,18 +1,20 @@
 import "./App.css";
 import Description from "./Description";
 import Introduction, {DEFAULT_USERNAME} from "./Introduction";
-import { useState } from "react";
+import { useState, useMemo, useContext } from "react";
 import Values from "./Values";
 import Goals from "./Goals";
 import ValuesRating from "./ValuesRating";
 import GoalsRating from "./GoalsRating";
 import Results from "./Results";
 import ShareRow from "./ShareRow";
+import AppContext from "./AppContext";
+import { getString } from "./strings";
 
 const LOCAL_STORAGE_ITEM = "gav_state";
 
 function App() {
-  const localState = JSON.parse(window.localStorage.getItem(LOCAL_STORAGE_ITEM)) || {};
+  const localState = useMemo(() => JSON.parse(window.localStorage.getItem(LOCAL_STORAGE_ITEM)) || {}, []);
 
   const [username, setUsername] = useState(localState.username || DEFAULT_USERNAME);
   const [step, setStep] = useState(0);
@@ -20,91 +22,107 @@ function App() {
   const [valueRatings, setValueRatings] = useState(localState.valueRatings || {});
   const [goals, setGoals] = useState(localState.goals || []);
 
+  const [language, setLanguage] = useState(localState.language || "en");
+  const context = useMemo(
+    () => ({ 
+      language, 
+      setLanguage: (newLanguage) => {
+        setLanguage(newLanguage);
+        localState.language = newLanguage;
+        updateLocalStorage(localState);
+      },  
+      getString: (key) => getString(language, key)
+    }), 
+    [language, localState]
+  );
+
   return (
-    <div className="App">
-      <header>
-        Goals & Values analyzer
-      </header>
+    <AppContext.Provider value={context}>
+      <div className="App">
+        <header>
+          {context.getString("header")}
+        </header>
 
-      {step === 0 && (
-        <>
-          <Description username={username} />
+        {step === 0 && (
+          <>
+            <Description username={username} />
 
-          <button className="app-button" autoFocus={true} onClick={() => setStep(1)}>
-            Let's start!
-          </button>
-        </>
-      )}
+            <button className="app-button" autoFocus={true} onClick={() => setStep(1)}>
+              {context.getString("start.btn")}
+            </button>
+          </>
+        )}
 
-      {step === 1 && (
-        <StepOne 
-          username={username}
-          localState={localState}
-          step={step}
-          setUsername={setUsername}
-          setStep={setStep}
-        />
-      )}
+        {step === 1 && (
+          <StepOne 
+            username={username}
+            localState={localState}
+            step={step}
+            setUsername={setUsername}
+            setStep={setStep}
+          />
+        )}
 
-      {step === 2 && (
-        <StepTwo
-          username={username}
-          values={values}
-          localState={localState}
-          step={step}
-          setValues={setValues}
-          setStep={setStep}
-        />
-      )}
+        {step === 2 && (
+          <StepTwo
+            username={username}
+            values={values}
+            localState={localState}
+            step={step}
+            setValues={setValues}
+            setStep={setStep}
+          />
+        )}
 
-      {step === 3 && (
-        <StepThree
-          username={username}
-          values={values}
-          valueRatings={valueRatings}
-          step={step}
-          localState={localState}
-          setValueRatings={setValueRatings}
-          setStep={setStep}
-        />
-      )}
+        {step === 3 && (
+          <StepThree
+            username={username}
+            values={values}
+            valueRatings={valueRatings}
+            step={step}
+            localState={localState}
+            setValueRatings={setValueRatings}
+            setStep={setStep}
+          />
+        )}
 
-      {step === 4 && (
-        <StepFour
-          username={username}
-          values={values}
-          goals={goals}
-          step={step}
-          localState={localState}
-          setGoals={setGoals}
-          setStep={setStep}
-        />
-      )}
+        {step === 4 && (
+          <StepFour
+            username={username}
+            values={values}
+            goals={goals}
+            step={step}
+            localState={localState}
+            setGoals={setGoals}
+            setStep={setStep}
+          />
+        )}
 
-      {step === 5 && (
-        <StepFive
-          username={username}
-          goals={goals}
-          step={step}
-          localState={localState}
-          setGoals={setGoals}
-          setStep={setStep}
-        />
-      )}
+        {step === 5 && (
+          <StepFive
+            username={username}
+            goals={goals}
+            step={step}
+            localState={localState}
+            setGoals={setGoals}
+            setStep={setStep}
+          />
+        )}
 
-      {step === 6 && (
-        <StepSix
-          username={username}
-          goals={goals}
-          values={values}
-          valueRatings={valueRatings}
-          step={step}
-          localState={localState}
-          setStep={setStep}
-        />
-      )}
+        {step === 6 && (
+          <StepSix
+            username={username}
+            goals={goals}
+            values={values}
+            valueRatings={valueRatings}
+            step={step}
+            localState={localState}
+            setStep={setStep}
+          />
+        )}
 
-   </div>
+      </div>
+    </AppContext.Provider>
   );
 }
 
@@ -116,6 +134,8 @@ function StepOne({username, localState, step, setUsername, setStep}) {
     setStep(++step);
   };
 
+  const context = useContext(AppContext);
+
   return (
     <>
       <Introduction 
@@ -123,21 +143,24 @@ function StepOne({username, localState, step, setUsername, setStep}) {
         onChange={(newUsername) => setUsername(newUsername)}
         returning={localState && localState.returning}
         onKeyPress={(keyCode) => {
-          console.log(keyCode);
           if (keyCode === "Enter") {
             nextStep();
           }
         }}
       />
 
+      <BackButton step={step} setStep={setStep} />
+
       <button className="app-button" onClick={() => nextStep()}>
-        Continue
+        {context.getString("continue.btn")}
       </button>
     </>
   );
 }
 
 function StepTwo({username, values, localState, step, setValues, setStep}) {
+  const context = useContext(AppContext);
+
   return (
     <>
       <Values 
@@ -156,21 +179,23 @@ function StepTwo({username, values, localState, step, setValues, setStep}) {
 
             if (values.length >= 3 || 
                 (values.length === 2 &&
-                window.confirm("I recommend to add at least 3 values to get more accurate results. Are you sure you want to proceed with 2 values?"))
+                window.confirm(context.getString("proceed.2.vals")))
             ) {
               setStep(++step);
             } else {
-              window.alert("It makes no sense to proceed with less than 2 values, please select some that fit you best.");
+              window.alert(context.getString("less.2.vals"));
             }
           }
         }>
-        Continue
+        {context.getString("continue.btn")}
       </button>
     </>
   );
 }
 
 function StepThree({username, values, valueRatings, step, localState, setValueRatings, setStep}) {
+  const context = useContext(AppContext);
+
   return (
     <>
       <ValuesRating 
@@ -189,19 +214,21 @@ function StepThree({username, values, valueRatings, step, localState, setValueRa
             const valueWithoutRating = values.find(value => !valueRatings[value]);
 
             if (valueWithoutRating) {
-              window.alert("Please make sure that all your values have corresponding rating assigned.");
+              window.alert(context.getString("vals.miss.rate"));
             } else {
               setStep(++step);
             }
           }
         }>
-        Continue
+        {context.getString("continue.btn")}
       </button>
     </>
   );
 }
 
 function StepFour({username, goals, values, step, localState, setGoals, setStep}) {
+  const context = useContext(AppContext);
+
   return (
     <>
       <Goals 
@@ -223,22 +250,24 @@ function StepFour({username, goals, values, step, localState, setGoals, setStep}
 
         setGoals(goals.filter(goal => !!goal.name));
         if (!goals.length) {
-          window.alert("Please make sure you entered at least 1 goal.");
+          window.alert(context.getString("miss.goals"));
         } else if (
           (goals.length < values.length &&
-          window.confirm(`Please confirm that all your goals are in place. Are you sure you want to continue?`)) ||
+          window.confirm(context.getString("confirm.all.goals"))) ||
           goals.length >= values.length
         ) {
           setStep(++step);
         } 
       }}>
-        Continue
+        {context.getString("continue.btn")}
       </button>
     </>
   );
 }
 
 function StepFive({username, goals, step, localState, setGoals, setStep}) {
+  const context = useContext(AppContext);
+
   return (
     <>
       <GoalsRating 
@@ -265,19 +294,21 @@ function StepFive({username, goals, step, localState, setGoals, setStep}) {
             const goalWithoutRating = goals.find(goal => !goal.rating);
 
             if (goalWithoutRating) {
-              window.alert("Please make sure that all your goals have corresponding rating assigned.");
+              window.alert(context.getString("goals.miss.rate"));
             } else {
               setStep(++step);
             }
           }
         }>
-        Continue
+        {context.getString("continue.btn")}
       </button>
     </>
   );
 }
 
 function StepSix({username, goals, values, valueRatings, localState}) {
+  const context = useContext(AppContext);
+
   if (!localState.returning) {
     localState.returning = true;
     updateLocalStorage(localState);
@@ -286,7 +317,6 @@ function StepSix({username, goals, values, valueRatings, localState}) {
   return (
     <>
       <Results
-        username={username}
         values={values}
         goals={goals}
         valueRatings={valueRatings}
@@ -296,33 +326,31 @@ function StepSix({username, goals, values, valueRatings, localState}) {
 
       <div className="final-info">
         <p>
-          This app is using your browser's local storage to keep your data, so you don't have to start from scratch every time.
-          If you have any concerns about this data being store in your browser storage please click "Close &amp; Reset" button.
+          {context.getString("app.use.localstorage")}
         </p>
 
         <p>
-          Click corresponding social network share button above if you liked the idea of this app and want to share it with your friends.
+          {context.getString("share.social")}
         </p>
 
         <p>
-          If you found this app useful and want to thank me for it click "Send me a gift" button ;). 
+          {context.getString("send.gift")}
         </p>
       </div>
-
 
       <button className="app-button reset-button" onClick={() => {
         window.localStorage.removeItem(LOCAL_STORAGE_ITEM);
         window.location.reload();
       }}>
-        Close &amp; Reset
+        {context.getString("close.reset.btn")}
       </button>
       <button className="app-button" onClick={() => window.location.reload()}>
-        Close
+        {context.getString("close.btn")}
       </button>
       <button className="app-button gift-button" onClick={() => {
         window.open("https://www.amazon.es/hz/wishlist/ls/1ECD8Z1UVQ0O1");
       }}>
-        Send me a gift
+        {context.getString("send.gift.btn")}
       </button>
 
     </>
@@ -330,13 +358,14 @@ function StepSix({username, goals, values, valueRatings, localState}) {
 }
 
 function BackButton({step, setStep}) {
+  const context = useContext(AppContext);
   return (
     <button className="app-button back-button" onClick={() => {
-      if (step > 1) {
+      if (step >= 1) {
         setStep(--step);
       }
     }}>
-      Back
+      {context.getString("back.btn")}
     </button>
   );
 }

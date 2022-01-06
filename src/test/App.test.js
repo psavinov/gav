@@ -1,8 +1,9 @@
-import { render, screen } from '@testing-library/react';
+import { screen } from '@testing-library/react';
 import App from '../App';
+import { customRender } from "./customRender";
 
 test('renders learn react link', () => {
-  render(<App />);
+  customRender(<App />);
   const startButton = screen.getByText("Let's start!");
   expect(startButton).toBeInTheDocument();
 });

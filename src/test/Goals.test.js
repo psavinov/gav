@@ -1,8 +1,9 @@
-import { render, screen, fireEvent } from "@testing-library/react";
+import { screen, fireEvent } from "@testing-library/react";
 import Goals from "../Goals";
+import { customRender } from "./customRender";
 
 test("renders existing goals", () => {
-  render(<Goals username="USER" returning={true} values={["test value"]} goals={[{name: "test goal", value: "", rating: ""}]} />);
+  customRender(<Goals username="USER" returning={true} values={["test value"]} goals={[{name: "test goal", value: "", rating: ""}]} />);
 
   const goalInput = screen.getByDisplayValue("test goal");
 
@@ -10,7 +11,7 @@ test("renders existing goals", () => {
 });
 
 test("renders existing values", () => {
-    render(<Goals username="USER" returning={true} values={["test value"]} goals={[{name: "test goal", value: "", rating: ""}]} />);
+    customRender(<Goals username="USER" returning={true} values={["test value"]} goals={[{name: "test goal", value: "", rating: ""}]} />);
   
     const goalInput = screen.getByDisplayValue("test goal");
   
@@ -21,7 +22,7 @@ test("renders existing values", () => {
 });
 
 test("adds new goal line when clicking plus button", () => {
-    render(<Goals username="USER" onAddGoal={() => expect(true).toBeTruthy()} values={["test value"]} goals={[{name: "test goal", value: "", rating: ""}]} />);
+    customRender(<Goals username="USER" onAddGoal={() => expect(true).toBeTruthy()} values={["test value"]} goals={[{name: "test goal", value: "", rating: ""}]} />);
   
     const plusButton = screen.getByText("+");
     expect(plusButton).toBeInTheDocument();
@@ -30,7 +31,7 @@ test("adds new goal line when clicking plus button", () => {
 });
 
 test("updates the goal name when user changes the input", () => {
-    render(<Goals username="USER" onUpdateGoal={(index, goal) => expect(goal.name).toEqual("updated goal")} values={["test value"]} goals={[{name: "test goal", value: "", rating: ""}]} />);
+    customRender(<Goals username="USER" onUpdateGoal={(index, goal) => expect(goal.name).toEqual("updated goal")} values={["test value"]} goals={[{name: "test goal", value: "", rating: ""}]} />);
   
     const goalInput = screen.getByDisplayValue("test goal");
 
@@ -38,7 +39,7 @@ test("updates the goal name when user changes the input", () => {
 });
 
 test("updates the goal value when user changes the input", () => {
-    render(<Goals username="USER" onUpdateGoal={(index, goal) => expect(goal.value).toEqual("test value")} values={["test value"]} goals={[{name: "test goal", value: "", rating: ""}]} />);
+    customRender(<Goals username="USER" onUpdateGoal={(index, goal) => expect(goal.value).toEqual("test value")} values={["test value"]} goals={[{name: "test goal", value: "", rating: ""}]} />);
   
     const goalInput = screen.getByDisplayValue("test goal");
   
@@ -48,7 +49,7 @@ test("updates the goal value when user changes the input", () => {
 });
 
 test("removes the goal from the list when minus button is clicked", () => {
-    render(<Goals username="USER" onRemoveGoal={(removeIndex) => expect(removeIndex).toEqual(0)} values={["test value"]} goals={[{name: "test goal", value: "", rating: ""}]} />);
+    customRender(<Goals username="USER" onRemoveGoal={(removeIndex) => expect(removeIndex).toEqual(0)} values={["test value"]} goals={[{name: "test goal", value: "", rating: ""}]} />);
   
     const goalInput = screen.getByDisplayValue("test goal");
   
