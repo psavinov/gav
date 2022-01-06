@@ -56,8 +56,8 @@ function Results({goals, values, valueRatings}) {
             {highPriorityGoals.length > 0 && highPriorityGoals.length >= Math.ceil(goals.length / 2) && (
                 <li>
                     <p>{context.getString("half.high.pr.goals")}</p>
-                    <p>{context.getString("half.high.pr.goals.desc1")}</p>
-                    <p>{context.getString("half.high.pr.goals.desc2")}</p>
+                    <p>{context.getString("half.high.pr.desc1")}</p>
+                    <p>{context.getString("half.high.pr.desc2")}</p>
                 </li>
             )}
 
