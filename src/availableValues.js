@@ -301,10 +301,6 @@ export const AVAILABLE_VALUES = {
             "label": "Leadership"
         },
         {
-            "id": "listening",
-            "label": "Listening"
-        },
-        {
             "id": "love",
             "label": "Love"
         },
@@ -437,10 +433,6 @@ export const AVAILABLE_VALUES = {
             "label": "Respect"
         },
         {
-            "id": "responsibility",
-            "label": "Responsibility"
-        },
-        {
             "id": "security",
             "label": "Security"
         },
@@ -537,10 +529,6 @@ export const AVAILABLE_VALUES = {
             "label": "Universal"
         },
         {
-            "id": "value",
-            "label": "Value"
-        },
-        {
             "id": "vital",
             "label": "Vital"
         },
@@ -568,7 +556,7 @@ export const AVAILABLE_VALUES = {
         },
         {
             "id": "accountability",
-            "label": "Подотчетность"
+            "label": "Ответственность"
         },
         {
             "id": "achievement",
@@ -576,7 +564,7 @@ export const AVAILABLE_VALUES = {
         },
         {
             "id": "adventure",
-            "label": "Приключение"
+            "label": "Приключения"
         },
         {
             "id": "affection",
@@ -604,7 +592,7 @@ export const AVAILABLE_VALUES = {
         },
         {
             "id": "balance",
-            "label": "Остаток средств"
+            "label": "Душевное равновесие"
         },
         {
             "id": "belonging",
@@ -628,11 +616,11 @@ export const AVAILABLE_VALUES = {
         },
         {
             "id": "change",
-            "label": "Изменять"
+            "label": "Перемены"
         },
         {
             "id": "cheerful",
-            "label": "Веселость"
+            "label": "Жизнерадостность"
         },
         {
             "id": "comfort",
@@ -648,7 +636,7 @@ export const AVAILABLE_VALUES = {
         },
         {
             "id": "commit",
-            "label": "Совершить"
+            "label": "Обязательство"
         },
         {
             "id": "confidence",
@@ -660,11 +648,11 @@ export const AVAILABLE_VALUES = {
         },
         {
             "id": "contribution",
-            "label": "Вклад"
+            "label": "Вклад в общее дело"
         },
         {
             "id": "creativity",
-            "label": "Творческий подход"
+            "label": "Творчество"
         },
         {
             "id": "culture",
@@ -676,7 +664,7 @@ export const AVAILABLE_VALUES = {
         },
         {
             "id": "daring",
-            "label": "Дерзкий"
+            "label": "Дерзость"
         },
         {
             "id": "dedication",
@@ -728,11 +716,11 @@ export const AVAILABLE_VALUES = {
         },
         {
             "id": "ethical",
-            "label": "Этический"
+            "label": "Этичность"
         },
         {
             "id": "expertise",
-            "label": "Экспертиза"
+            "label": "Экспертность"
         },
         {
             "id": "exploration",
@@ -772,7 +760,7 @@ export const AVAILABLE_VALUES = {
         },
         {
             "id": "giving",
-            "label": "Отдавача"
+            "label": "Отдача"
         },
         {
             "id": "gratitude",
@@ -824,7 +812,7 @@ export const AVAILABLE_VALUES = {
         },
         {
             "id": "individual",
-            "label": "Физическое лицо"
+            "label": "Индивидуальность"
         },
         {
             "id": "influence",
@@ -863,10 +851,6 @@ export const AVAILABLE_VALUES = {
             "label": "Лидерство"
         },
         {
-            "id": "listening",
-            "label": "Слушаю"
-        },
-        {
             "id": "love",
             "label": "Любовь"
         },
@@ -876,7 +860,7 @@ export const AVAILABLE_VALUES = {
         },
         {
             "id": "meaning",
-            "label": "Значение"
+            "label": "Значимость"
         },
         {
             "id": "mindful",
@@ -888,7 +872,7 @@ export const AVAILABLE_VALUES = {
         },
         {
             "id": "mystery",
-            "label": "Тайна"
+            "label": "Загадочность"
         },
         {
             "id": "nature",
@@ -996,11 +980,7 @@ export const AVAILABLE_VALUES = {
         },
         {
             "id": "respect",
-            "label": "Уважать"
-        },
-        {
-            "id": "responsibility",
-            "label": "Обязанность"
+            "label": "Уважение"
         },
         {
             "id": "security",
@@ -1020,7 +1000,7 @@ export const AVAILABLE_VALUES = {
         },
         {
             "id": "service",
-            "label": "Услуга"
+            "label": "Услужливость"
         },
         {
             "id": "skilfulness",
@@ -1097,10 +1077,6 @@ export const AVAILABLE_VALUES = {
         {
             "id": "universal",
             "label": "Универсальность"
-        },
-        {
-            "id": "value",
-            "label": "Ценность"
         },
         {
             "id": "vital",
