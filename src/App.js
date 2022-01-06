@@ -47,7 +47,7 @@ function App() {
           <>
             <Description username={username} />
 
-            <button className="app-button" autoFocus={true} onClick={() => setStep(1)}>
+            <button className="app-button" onClick={() => setStep(1)}>
               {context.getString("start.btn")}
             </button>
           </>
