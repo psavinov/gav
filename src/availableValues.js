@@ -58,7 +58,7 @@ export const AVAILABLE_VALUES = {
         },
         {
             "id": "clever",
-            "label": "Clever"
+            "label": "Cleverness"
         },
         {
             "id": "challenge",
@@ -620,7 +620,7 @@ export const AVAILABLE_VALUES = {
         },
         {
             "id": "clever",
-            "label": "Умная"
+            "label": "Сообразительность"
         },
         {
             "id": "challenge",

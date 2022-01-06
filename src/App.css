@@ -22,14 +22,14 @@ body {
 }
 
 .app-button {
-    margin-right: 0.25em;
-    margin-left: 0.25em;
+    margin-right: 0.2em;
+    margin-left: 0.2em;
     padding: 0.3em;
     color: #212529;
     background-color: #fcd359;
     border-color: #fcd359;
     border-radius: 5px;
-    font-size:2em;
+    font-size:1.8em;
     font-weight: bold;
     margin-bottom: 2em;
 }
