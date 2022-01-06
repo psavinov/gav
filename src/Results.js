@@ -167,7 +167,7 @@ function getAverageGoalScores(values, goals) {
         if (valueGoalsRatings.length) {
             const avgGoalsRating = valueGoalsRatings.reduce((sum, item) => sum + item, 0) / valueGoalsRatings.length;
 
-            scores[value] = avgGoalsRating;
+            scores[value] = Number(avgGoalsRating).toFixed(1);
         }
     });
 
@@ -184,7 +184,7 @@ function getValueScores(values, valueRatings, goals) {
         if (valueGoalsRatings.length) {
             const avgGoalsRating = valueGoalsRatings.reduce((sum, item) => sum + item, 0) / valueGoalsRatings.length;
 
-            scores[value] = Math.abs(valueRating - avgGoalsRating);
+            scores[value] = Number(Math.abs(valueRating - avgGoalsRating)).toFixed(1);
         }
     });
 
